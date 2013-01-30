@@ -1,0 +1,9 @@
+package bestock.general;
+
+public class ClientProxyTweaks {
+
+	public ClientProxyTweaks() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

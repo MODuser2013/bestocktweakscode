@@ -1,20 +1,22 @@
 package bestock.smartquarry;
 
+import bestock.general.BaseModTweaks;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class BlockQuarry extends BlockContainer {
 
-	public BlockQuarry(int id) {
-		super(id, 13, Material.rock);
+	public BlockQuarry(int id, Material mat) {
+		super(id, 1, mat);
+		this.setCreativeTab(BaseModTweaks.customTab);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World var1) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TileEntityQuarry();
 	}
 
 }

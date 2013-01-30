@@ -1,0 +1,68 @@
+package bestock.general;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntity;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
+
+
+@Mod(modid = "user2013Tweaks", name = "User2013 Tweaks", version = "0.0.1/2")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+
+public class BaseModTweaks {
+
+	@Instance("user2013Tweaks")
+	public static BaseModTweaks instance;
+	@SidedProxy(clientSide="bestock.general.ClientProxyTweaks", serverSide="bestock.general.CommonProxyTweaks")
+	public static CommonProxyTweaks proxy;
+	
+	
+	
+	public static Block BlockQuarry;
+	public static TileEntity EntityQuarry;
+	
+	
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+		//code run before mod load
+		
+	}
+
+	@Init
+	public void init(FMLInitializationEvent event) {
+		//code run during load
+		LanguageRegistry.addName(CreativeTabBlock.class, "My Tab");
+		setupQuarry();
+	}
+
+	@PostInit
+	public static void postInit(FMLPostInitializationEvent event) {
+		//code run after load
+		System.out.println("BestockTweaks v0.0.1/2 :D");
+	}
+
+	private void setupQuarry()
+	{
+		BlockQuarry = (new bestock.smartquarry.BlockQuarry(539, Material.rock).setBlockName("SmartQuarry"));
+		LanguageRegistry.addName(BlockQuarry, "Smart Quarry"); //set readable name
+		GameRegistry.registerBlock(BlockQuarry, "tweakSmartQuarry"); //register block
+		GameRegistry.registerTileEntity(bestock.smartquarry.TileEntityQuarry.class, "tweakSmartQuarryENTITY");
+		// NetworkRegistry.instance().registerGuiHandler(this, new SmartQuarryGUI_Handler()); //registers GUI handler
+		System.out.println("Smart Quarry Loaded");
+	}
+}

@@ -10,7 +10,6 @@
 <fullyQualifiedTypeName name="cpw.mods.fml.common.SidedProxy"/>
 <fullyQualifiedTypeName name="cpw.mods.fml.common.registry.LanguageRegistry"/>
 <fullyQualifiedTypeName name="cpw.mods.fml.common.registry.GameRegistry"/>
-<fullyQualifiedTypeName name="net.minecraft.creativetab.CreativeTabs"/>
 <fullyQualifiedTypeName name="net.minecraftforge.common.DimensionManager"/>
 <fullyQualifiedTypeName name="net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer"/>
 <fullyQualifiedTypeName name="bestock.mod.tweaks.RenderEndBlock"/>
@@ -39,4 +38,8 @@
 <fullyQualifiedTypeName name="net.minecraft.entity.item.EntityItem"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="net.minecraft.world.World"/>
+<fullyQualifiedTypeName name="bestock.smartquarry.BlockQuarry"/>
+<fullyQualifiedTypeName name="bestock.smartquarry.TileEntityQuarry"/>
+<fullyQualifiedTypeName name="net.minecraft.creativetab.CreativeTabs"/>
+<fullyQualifiedTypeName name="bestock.general.BaseModTweaks"/>
 </qualifiedTypeNameHistroy>

@@ -1,0 +1,9 @@
+package bestock.general;
+
+public class BaseModTweaks {
+
+	public BaseModTweaks() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

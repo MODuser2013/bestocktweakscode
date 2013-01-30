@@ -1,0 +1,9 @@
+package bestock.general;
+
+public class CommonProxyTweaks {
+
+	public CommonProxyTweaks() {
+		// TODO Auto-generated constructor stub
+	}
+
+}
