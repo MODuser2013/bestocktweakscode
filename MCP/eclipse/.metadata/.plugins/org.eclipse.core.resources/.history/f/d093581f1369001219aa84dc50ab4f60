@@ -1,0 +1,9 @@
+package bestock.mod.tweaks;
+
+public class SmartQuarryGUI_Handler {
+
+	public SmartQuarryGUI_Handler() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

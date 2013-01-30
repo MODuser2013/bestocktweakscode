@@ -1,0 +1,78 @@
+---- Minecraft Crash Report ----
+// Oops.
+
+Time: 1/21/13 1:35 AM
+Description: Unexpected error
+
+java.lang.IllegalStateException: Not tesselating!
+	at net.minecraft.client.renderer.Tessellator.draw(Tessellator.java:165)
+	at bestock.mod.tweaks.RenderEndBlock.renderEndBlockTileEntity(RenderEndBlock.java:112)
+	at bestock.mod.tweaks.RenderEndBlock.renderTileEntityAt(RenderEndBlock.java:129)
+	at net.minecraft.client.renderer.tileentity.TileEntityRenderer.renderTileEntityAt(TileEntityRenderer.java:167)
+	at net.minecraft.client.renderer.tileentity.TileEntityRenderer.renderTileEntity(TileEntityRenderer.java:154)
+	at net.minecraft.client.renderer.RenderGlobal.renderEntities(RenderGlobal.java:499)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1131)
+	at net.minecraft.client.renderer.EntityRenderer.updateCameraAndRender(EntityRenderer.java:970)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:882)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:771)
+	at java.lang.Thread.run(Unknown Source)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at net.minecraft.client.renderer.Tessellator.draw(Tessellator.java:165)
+	at bestock.mod.tweaks.RenderEndBlock.renderEndBlockTileEntity(RenderEndBlock.java:112)
+	at bestock.mod.tweaks.RenderEndBlock.renderTileEntityAt(RenderEndBlock.java:129)
+	at net.minecraft.client.renderer.tileentity.TileEntityRenderer.renderTileEntityAt(TileEntityRenderer.java:167)
+	at net.minecraft.client.renderer.tileentity.TileEntityRenderer.renderTileEntity(TileEntityRenderer.java:154)
+	at net.minecraft.client.renderer.RenderGlobal.renderEntities(RenderGlobal.java:499)
+	at net.minecraft.client.renderer.EntityRenderer.renderWorld(EntityRenderer.java:1131)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityClientPlayerMP['Player609'/47, l='MpServer', x=-424.58, y=15.74, z=-1451.45]]
+	Chunk stats: MultiplayerChunkCache: 155
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (-422,4,-1446), Chunk: (at 10,0,10 in -27,-91; contains blocks -432,0,-1456 to -417,255,-1441), Region: (-1,-3; contains chunks -32,-96 to -1,-65, blocks -512,0,-1536 to -1,255,-1025)
+	Level time: 10904 game time, 10904 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 12 total; [EntityPig['Pig'/16, l='MpServer', x=-387.03, y=4.00, z=-1459.09], EntityPig['Pig'/19, l='MpServer', x=-371.38, y=4.00, z=-1472.88], EntityPig['Pig'/21, l='MpServer', x=-347.88, y=4.00, z=-1472.06], EntitySlime['Slime'/5, l='MpServer', x=-503.95, y=4.00, z=-1428.48], EntitySlime['Slime'/6, l='MpServer', x=-486.68, y=4.02, z=-1430.81], EntityClientPlayerMP['Player609'/47, l='MpServer', x=-424.58, y=15.74, z=-1451.45], EntitySlime['Slime'/7, l='MpServer', x=-477.59, y=4.39, z=-1505.37], EntitySlime['Slime'/10, l='MpServer', x=-455.65, y=4.62, z=-1497.08], EntitySlime['Slime'/11, l='MpServer', x=-453.13, y=4.00, z=-1499.24], EntitySlime['Slime'/12, l='MpServer', x=-452.98, y=4.00, z=-1494.13], EntitySlime['Slime'/14, l='MpServer', x=-424.59, y=4.99, z=-1376.41], EntityPig['Pig'/15, l='MpServer', x=-394.94, y=4.00, z=-1462.13]]
+	Retry entities: 0 total; []
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:440)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2401)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:794)
+	at java.lang.Thread.run(Unknown Source)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.4.7
+	Operating System: Windows 7 (amd64) version 6.1
+	Java Version: 1.7.0_09, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 880849416 bytes (840 MB) / 1056309248 bytes (1007 MB) up to 1056309248 bytes (1007 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 1839 (102984 bytes; 0 MB) allocated, 1839 (102984 bytes; 0 MB) used
+	Suspicious classes: FML and Forge are installed
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v7.26 FML v4.7.4.520 Minecraft Forge 6.6.0.497 4 mods loaded, 4 mods active
+	mcp [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	FML [Forge Mod Loader] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	Forge [Minecraft Forge] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	bestock2013Tweaks [Bestock Tweaks] (bin) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	LWJGL: 2.4.2
+	OpenGL: GeForce GT 130M/PCIe/SSE2 GL version 3.3.0, NVIDIA Corporation
+	Is Modded: Definitely; Client brand changed to 'forge,fml'
+	Type: Client (map_client.txt)
+	Texture Pack: Default
+	Profiler Position: N/A (disabled)
+	Vec3 Pool Size: 387 (21672 bytes; 0 MB) allocated, 387 (21672 bytes; 0 MB) used

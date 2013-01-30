@@ -1,0 +1,121 @@
+package bestock.mod.tweaks;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.StatCollector;
+
+import org.lwjgl.opengl.GL11;
+
+public class SmartQuarryGUI extends GuiContainer {
+
+			SmartQuarryENTITY myEntity;
+        public SmartQuarryGUI (InventoryPlayer inventoryPlayer,
+                        SmartQuarryENTITY tileEntity) {
+                //the container is instanciated and passed to the superclass for handling
+                super(new SmartQuarryCONTAINER(inventoryPlayer, tileEntity));
+                myEntity = tileEntity;
+        }
+
+        @Override
+        protected void drawGuiContainerForegroundLayer(int param1, int param2) {
+                //draw text and stuff here
+                //the parameters for drawString are: string, x, y, color
+                fontRenderer.drawString(new Integer(myEntity.size).toString(), 140, 35, 4210752);
+                //draws "Inventory" or your regional equivalent
+                fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 2, 4210752);
+        }
+
+        @Override
+        protected void drawGuiContainerBackgroundLayer(float par1, int par2, int par3) {
+                //draw your Gui here, only thing you need to change is the path
+                int texture = mc.renderEngine.getTexture("/bestock/mod/tweaks/SmartQuarryGUI.png");
+                GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+                this.mc.renderEngine.bindTexture(texture);
+                               
+                int x = (width - xSize) / 2;
+                int y = (height - ySize) / 2;
+                this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+                boolean active = true;
+                int fuelBurn = 6;
+                int SpdDEC = 0; //0 = deactive, 1 = active, 2 = clicked
+                int SpdINC = 1; //0 = deactive, 1 = active, 2 = clicked
+                int RdsDEC = 1; //0 = deactive, 1 = active, 2 = clicked
+                int RdsINC = 1; //0 = deactive, 1 = active, 2 = clicked
+                
+                    
+                    //xloc, yloc,texX, texY, xSize, ySize 
+                    
+                    this.drawTexturedModalRect(x + 20, y + 36 + 12 - fuelBurn, 176, 12 - fuelBurn, 14, fuelBurn + 2); //draw burn
+                    if(active == false)
+                    {
+                    	this.drawTexturedModalRect(x + 61, y + 43, 176, 31, 16, 16); //Quarry Deactive
+                    }
+                    else
+                    {
+                    	this.drawTexturedModalRect(x + 61, y + 43, 176, 47, 16, 16); //Quarry Active
+                    }
+                    
+                    switch(RdsDEC)
+                    {
+                    case 0:
+                    	//draw deactive button
+                    	this.drawTexturedModalRect(x + 154, y + 28, 201, 65, 10, 15);
+                    break;
+                    case 1:
+                    	//draw active button
+                    	this.drawTexturedModalRect(x + 154, y + 28, 177, 65, 10, 15);
+                    break;
+                    case 2:
+                    	//draw clicked button
+                    	this.drawTexturedModalRect(x + 154, y + 28, 189, 65, 10, 15);
+                    break;
+                    }
+                    switch(RdsINC)
+                    {
+                    case 0:
+                    	//draw deactive button
+                    	this.drawTexturedModalRect(x + 89, y + 28, 201, 83, 10, 15);
+                    break;
+                    case 1:
+                    	//draw active button
+                    	this.drawTexturedModalRect(x + 89, y + 28, 177, 83, 10, 15);
+                    break;
+                    case 2:
+                    	//draw clicked button
+                    	this.drawTexturedModalRect(x + 89, y + 28, 189, 83, 10, 15);
+                    break;
+                    }
+                    
+                    switch(SpdDEC)
+                    {
+                    case 0:
+                    	//draw deactive button
+                    	this.drawTexturedModalRect(x + 154, y + 58, 201, 65, 10, 15);
+                    break;
+                    case 1:
+                    	//draw active button
+                    	this.drawTexturedModalRect(x + 154, y + 58, 177, 65, 10, 15);
+                    break;
+                    case 2:
+                    	//draw clicked button
+                    	this.drawTexturedModalRect(x + 154, y + 58, 189, 65, 10, 15);
+                    break;
+                    }
+                    switch(SpdINC)
+                    {
+                    case 0:
+                    	//draw deactive button
+                    	this.drawTexturedModalRect(x + 89, y + 58, 201, 83, 10, 15);
+                    break;
+                    case 1:
+                    	//draw active button
+                    	this.drawTexturedModalRect(x + 89, y + 58, 177, 83, 10, 15);
+                    break;
+                    case 2:
+                    	//draw clicked button
+                    	this.drawTexturedModalRect(x + 89, y + 58, 189, 83, 10, 15);
+                    break;
+                    }
+                
+        }
+
+}

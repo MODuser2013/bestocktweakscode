@@ -1,0 +1,95 @@
+package bestock.smartquarry;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+
+public class TileEntityQuarry extends TileEntity implements IInventory{
+
+	public TileEntityQuarry() {
+		
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		
+	}
+
+	@Override
+	public void onInventoryChanged()
+	{
+		//check for coal and update fuel
+		
+	}
+
+	
+	//INVENTORY CODE
+	private ItemStack inventory[] = new ItemStack[28]; //actual inventory
+	
+	@Override
+	public int getSizeInventory() {
+		return inventory.length; /*storage + fuel*/
+		}
+
+	@Override
+	public ItemStack getStackInSlot(int slotIndex) {
+		return inventory[slotIndex];
+		}
+
+	@Override
+	public ItemStack decrStackSize(int slotIndex, int amount) {
+		// This gets the stack with the slot number you want
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		// Then it checks to make sure it has something in it
+		if(stack != null){
+		// Then it checks to make sure that it has something that is equal or lesser than the amount you want to add
+		if(stack.stackSize <= amount){
+		setInventorySlotContents(slotIndex, null);
+		} else{
+		stack = stack.splitStack(amount);
+		if(stack.stackSize == 0){
+		setInventorySlotContents(slotIndex, null);
+		}
+		
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int var1) {
+		
+		
+		return null;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
+		// This checks to make sure the stack is not nothing, and then makes sure the stack is not going over the limit
+		// Of the stack
+		if(stack != null && stack.stackSize > getInventoryStackLimit()){
+		stack.stackSize = getInventoryStackLimit();
+		}
+	}
+
+	@Override
+	public String getInvName() {return "smartquarry.inv";}
+
+	@Override
+	public int getInventoryStackLimit() {return 64;}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer var1) {
+
+
+		
+		return false;
+	}
+
+	@Override
+	public void openChest() {/*DUMMY METHOD*/}
+
+	@Override
+	public void closeChest() {/*DUMMY METHOD*/}
+}

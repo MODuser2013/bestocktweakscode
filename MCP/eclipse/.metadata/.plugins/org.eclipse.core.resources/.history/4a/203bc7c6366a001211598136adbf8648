@@ -1,0 +1,11 @@
+package bestock.smartquarry;
+
+import net.minecraft.tileentity.TileEntity;
+
+public class TileEntityQuarry extends TileEntity{
+
+	public TileEntityQuarry() {
+		
+	}
+
+}

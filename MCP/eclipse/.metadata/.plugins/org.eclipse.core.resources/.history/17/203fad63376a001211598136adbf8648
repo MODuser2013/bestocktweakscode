@@ -1,0 +1,9 @@
+package bestock.smartquarry;
+
+public class BlockQuarry {
+
+	public BlockQuarry() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

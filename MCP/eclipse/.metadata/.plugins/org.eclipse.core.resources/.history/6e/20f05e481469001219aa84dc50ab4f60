@@ -1,0 +1,15 @@
+package bestock.mod.tweaks;
+
+public class TweaksCommonProxy {
+
+	public static String ITEMS_PNG = "/bestock/mod/tweaks/TweaksItem.png";
+	
+	public TweaksCommonProxy() {
+		
+	}
+	
+	 // Client stuff
+    public void registerRenderers () {
+            // Nothing here as this is the server side proxy
+    }
+}

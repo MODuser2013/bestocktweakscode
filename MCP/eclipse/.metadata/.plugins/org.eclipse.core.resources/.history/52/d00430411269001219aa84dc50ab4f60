@@ -1,0 +1,9 @@
+package bestock.mod.tweaks;
+
+public class SmartQuarryCONTAINER {
+
+	public SmartQuarryCONTAINER() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,67 @@
+package bestock.mod.tweaks;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
+import cpw.mods.fml.common.Mod.PreInit;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
+
+
+
+@Mod(modid = "bestock2013Tweaks", name = "Bestock Tweaks", version = "0.0.1/2")
+@NetworkMod(clientSideRequired = true, serverSideRequired = false)
+
+public class TweaksBaseMod {
+
+	@Instance("bestock2013Tweaks")
+	public static TweaksBaseMod instance;
+	@SidedProxy(clientSide="bestock.mod.tweaks.client.TweaksClientProxy", serverSide="bestock.mod.tweaks.TweaksCommonProxy")
+	public static TweaksCommonProxy proxy;
+	
+	
+	public static Block myFirstBlock;
+	public static Block mySmartQuarry;
+	private static final Item grappler = new Grappler(5001);
+	private static final Item repulser = new Repusler(5000);
+	
+	@PreInit
+	public void preInit(FMLPreInitializationEvent event) {
+		//code run before mod load
+		
+	}
+
+	@Init
+	public void init(FMLInitializationEvent event) {
+		//code run during load
+		myFirstBlock = (new EndBlock(538, Material.portal).setBlockName("tweakEndBlock"));
+		mySmartQuarry = (new SmartQuarryBLOCK(539, Material.rock).setBlockName("SmartQuarry"));
+		
+		LanguageRegistry.addName(myFirstBlock, "End Block");
+		LanguageRegistry.addName(mySmartQuarry, "Smart Quarry");
+		GameRegistry.registerBlock(myFirstBlock, "tweakEndBlock");
+		GameRegistry.registerBlock(mySmartQuarry, "tweakSmartQuarry");
+		//"this" is an instance of the @Mod
+        NetworkRegistry.instance().registerGuiHandler(this, new SmartQuarryGUI_Handler());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEndBlock.class, new RenderEndBlock());  //registers tile entity
+		LanguageRegistry.addName(grappler, "Magnet");
+		LanguageRegistry.addName(repulser, "Hammer");
+	}
+
+	@PostInit
+	public static void postInit(FMLPostInitializationEvent event) {
+		//code run after load
+		System.out.println("BestockTweaks v0.0.1/2 :D");
+	}
+}

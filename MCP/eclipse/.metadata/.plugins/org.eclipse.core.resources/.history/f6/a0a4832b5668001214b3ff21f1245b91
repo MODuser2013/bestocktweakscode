@@ -1,0 +1,9 @@
+package bestock.mod.tweaks;
+
+public class ISynchronizedTile {
+
+	public ISynchronizedTile() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,21 @@
+package bestock.mod.tweaks;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class SmartQuarryBLOCK extends BlockContainer{
+
+	public SmartQuarryBLOCK(int blockID, Material bmaterial) {
+		super(blockID, bmaterial);
+		this.setCreativeTab(CreativeTabs.tabRedstone);	
+        this.setLightValue(1.0F);
+	}
+
+	 public TileEntity createNewTileEntity(World par1World)
+	    {
+	        return new SmartQuarryENTITY();
+	    }
+}

@@ -1,0 +1,316 @@
+package bestock.mod.tweaks;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.event.Event;
+
+public class SmartQuarryENTITY extends TileEntity implements IInventory {
+
+	SmartQuarryCONTAINER myContain;
+	int dug = 0;
+	
+	int size = 2;
+	int speed = 2; // every {speed} ticks  2 is the LOWEST 12 is the HIGHEST
+	
+	
+	int xdist = size;
+	int ydist = -10 ;
+	int zdist = size;
+	
+	int OxLoc = -size - 1;
+	int OyLoc = 0; //ydist;
+	int OzLoc = -size - 1;
+	
+	int ticks = 0;
+	boolean digging = true;
+	boolean dodrop = false;
+	
+	int stepdir = 0; //0, 1, 2, 3
+	int stepx = xdist;
+	int stepy = 0;
+	int stepz = 0;
+	
+	float fuel = 10.0F; //amount of energy
+	int inventoryfree = 64; //amount of space
+	
+	private ItemStack[] inv;
+	
+	
+	public SmartQuarryENTITY()  {
+		inv = new ItemStack[36];
+		
+	}
+	
+	@Override
+	public void updateEntity() 
+	{
+		//update digging location
+		ticks++;
+		if((ticks % speed) <= 0 && digging == true)
+		{
+		World myWorld = this.getWorldObj();
+		if (checkCanDig(myWorld) == false)
+		{
+			//digging done
+			this.getBlockType().blockIndexInTexture = 1;
+		}
+		else
+		{
+			//take away fuel
+			fuel -= 0.02;
+		}
+		}
+	}
+		
+	public boolean checkCanDig(World CurWorld)
+	{
+		boolean rtn = true;
+		//checks fuel, inventory and 'isdigging' switch
+		if(fuel > 0.0F && inventoryfree > 0 && digging == true)
+		{
+			
+			tryDig(OxLoc, OyLoc, OzLoc, CurWorld); //digs block
+			updateDigHead(); //updates target block
+		}
+		else if(fuel <= 0.0F)
+		{
+			//unlight
+			this.getBlockType().setLightValue(0); //turns off glow
+			System.out.println("Out of Fuel");
+			digging = false; 
+			rtn = false;
+		}
+		else if (inventoryfree == 0)
+		{
+			rtn = false;
+		}
+		else if (digging = false)
+		{
+			
+			rtn = false;
+		}
+			
+		return rtn;
+	}
+	
+	public boolean tryDig(int x, int y, int z, World curWorld)
+	{
+		//digs block and places it
+		try{
+		int blockID = curWorld.getBlockId(x + this.xCoord, y + this.yCoord, z + this.zCoord); //gets block id
+		if(blockID != Block.bedrock.blockID && blockID != this.getBlockType().blockID && blockID != Block.chest.blockID)
+		{
+			//block is diggable {won't dig bedrock, smartQuarry or chest}
+			int Bx = x + this.xCoord;
+			int By = y + this.yCoord;
+			int Bz = z + this.zCoord;
+			int mData = curWorld.getBlockMetadata(Bx, By, Bz);
+			int Bid = curWorld.getBlockId(Bx, By, Bz);
+			if(Bid > 0 && Bid != this.getBlockType().blockID)
+			{
+			List<ItemStack> blockDrops = Block.blocksList[Bid].getBlockDropped(curWorld, Bx, By, Bz, mData, 0);
+			
+			for (ItemStack item : blockDrops) {
+				float var = 0.7F;
+				double dx = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
+				double dy = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
+				double dz = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
+				EntityItem entityitem = new EntityItem(curWorld, this.xCoord + dx, this.yCoord + dy, this.zCoord + dz, item);
+			
+				entityitem.lifespan = 1200;
+				entityitem.delayBeforeCanPickup = 10;
+				
+				if(dodrop == true)
+				{
+					curWorld.spawnEntityInWorld(entityitem);
+				}
+				else
+				{
+					giveItem(item);
+				}
+			    }
+				
+			curWorld.setBlockWithNotify(Bx, By, Bz, 0); //removes block
+			}
+			
+			dug++;
+		}
+		
+		
+		return true;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public void updateDigHead()
+	{
+		OxLoc++; //increment x
+		if(OxLoc == xdist + 1)
+		{
+			OzLoc++; //increment z
+			OxLoc = -xdist; //resets x
+			if(OzLoc == zdist + 1)
+			{
+				OyLoc--; //brings layer down
+				OxLoc = -xdist;
+				OzLoc = -zdist;
+				/*if(OyLoc == ydist)
+				{
+					digging = false;
+					System.out.println("SMARTQUARRY DONE " + OxLoc + ", " + OyLoc + ", " + OzLoc);
+				}*/
+			}
+		}
+	}
+	
+	public void giveItem(ItemStack item)
+	{
+		//puts in inventory or spawns to world
+		if(myContain != null)
+		{
+			myContain.mergeItemStack(item, 9, 45, true);
+		}
+		else
+		{
+			System.out.println("Container Null");
+		}
+	}
+
+	@Override
+	public int getSizeInventory() {
+		 return inv.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int slot) {
+		//System.out.println(slot);
+		 return inv[slot];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int slot, int amt) {
+		 ItemStack stack = getStackInSlot(slot);
+         if (stack != null) {
+                 if (stack.stackSize <= amt) {
+                         setInventorySlotContents(slot, null);
+                 } else {
+                         stack = stack.splitStack(amt);
+                         if (stack.stackSize == 0) {
+                                 setInventorySlotContents(slot, null);
+                         }
+                 }
+         }
+         return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slot) {
+		ItemStack stack = getStackInSlot(slot);
+        if (stack != null) {
+                setInventorySlotContents(slot, null);
+        }
+        return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inv[slot] = stack;
+        if (stack != null && stack.stackSize > getInventoryStackLimit()) {
+                stack.stackSize = getInventoryStackLimit();
+        }  
+	}
+
+	@Override
+	public String getInvName() {
+		 return "SmartQuarryEntity";
+	}
+
+	@Override
+	public int getInventoryStackLimit() {
+		return 64;
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this &&
+                player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+	}
+
+	public void getContain(SmartQuarryCONTAINER val)
+	{
+		myContain = val;
+	}
+	@Override
+	public void openChest() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeChest() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// This is a really hard method to understand and requires Knowledge of minecrafts NBTTag System, and
+	// All you really need to do is copy it because its pretty much the same for every entity
+	@Override
+	public void readFromNBT(NBTTagCompound tagCompound){
+	super.readFromNBT(tagCompound);
+
+	NBTTagList tagList = tagCompound.getTagList("Inventory");
+
+	for(int i = 0; i < tagList.tagCount(); i++){
+	NBTTagCompound tag = (NBTTagCompound) tagList.tagAt(i);
+
+	byte slot = tag.getByte("Slot");
+
+	if(slot >= 0 && slot < inv.length){
+	inv[slot] = ItemStack.loadItemStackFromNBT(tag);
+	}
+	}
+	}
+
+	// Same as the later
+	@Override
+	public void writeToNBT(NBTTagCompound tagCompound){
+	super.writeToNBT(tagCompound);
+
+	NBTTagList itemList = new NBTTagList();
+
+	for(int i = 0; i < inv.length; i++){
+	ItemStack stack = inv[i];
+
+	if(stack != null){
+	NBTTagCompound tag = new NBTTagCompound();
+
+	tag.setByte("Slot", (byte) i);
+	stack.writeToNBT(tag);
+	itemList.appendTag(tag);
+	}
+	}
+
+	tagCompound.setTag("Inventory", itemList);
+	}
+	
+
+	
+
+}
+
+

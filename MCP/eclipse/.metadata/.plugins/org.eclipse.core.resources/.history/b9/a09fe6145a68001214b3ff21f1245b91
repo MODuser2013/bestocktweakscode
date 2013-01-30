@@ -1,0 +1,17 @@
+package bestock.mod.tweaks;
+
+import net.minecraft.block.Block;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class SmartQuarryBLOCK extends Block{
+
+	public SmartQuarryBLOCK() {
+		
+	}
+s
+	 public TileEntity createNewTileEntity(World par1World)
+	    {
+	        return new SmartQuarryENTITY();
+	    }
+}

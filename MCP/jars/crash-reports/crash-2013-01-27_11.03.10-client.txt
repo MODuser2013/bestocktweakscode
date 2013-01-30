@@ -1,0 +1,80 @@
+---- Minecraft Crash Report ----
+// Ouch. That hurt :(
+
+Time: 1/27/13 11:03 AM
+Description: Ticking tile entity
+
+java.lang.NullPointerException
+	at bestock.mod.tweaks.SmartQuarryENTITY.tryDig(SmartQuarryENTITY.java:73)
+	at bestock.mod.tweaks.SmartQuarryENTITY.checkCanDig(SmartQuarryENTITY.java:65)
+	at bestock.mod.tweaks.SmartQuarryENTITY.updateEntity(SmartQuarryENTITY.java:54)
+	at net.minecraft.world.World.updateEntities(World.java:2151)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1863)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:846)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:771)
+	at java.lang.Thread.run(Unknown Source)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at bestock.mod.tweaks.SmartQuarryENTITY.tryDig(SmartQuarryENTITY.java:73)
+	at bestock.mod.tweaks.SmartQuarryENTITY.checkCanDig(SmartQuarryENTITY.java:65)
+	at bestock.mod.tweaks.SmartQuarryENTITY.updateEntity(SmartQuarryENTITY.java:54)
+
+-- Tile entity being ticked --
+Details:
+	Name: null // bestock.mod.tweaks.SmartQuarryENTITY
+	Block type: ID #0
+	Block data value: Unknown? (Got -1)
+	Block location: World: (-83,65,177), Chunk: (at 13,4,1 in -6,11; contains blocks -96,0,176 to -81,255,191), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:2151)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityClientPlayerMP['Player460'/229, l='MpServer', x=-84.13, y=68.93, z=177.28]]
+	Chunk stats: MultiplayerChunkCache: 60
+	Level seed: 0
+	Level generator: ID 00 - default, ver 1. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (-100,64,228), Chunk: (at 12,4,4 in -7,14; contains blocks -112,0,224 to -97,255,239), Region: (-1,0; contains chunks -32,0 to -1,31, blocks -512,0,0 to -1,255,511)
+	Level time: 8604 game time, 8604 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 38 total; [EntityChicken['Chicken'/139, l='MpServer', x=-68.19, y=66.00, z=187.41], EntityChicken['Chicken'/138, l='MpServer', x=-67.59, y=64.00, z=159.19], EntityChicken['Chicken'/141, l='MpServer', x=-71.59, y=62.39, z=232.41], EntityChicken['Chicken'/140, l='MpServer', x=-70.53, y=62.44, z=232.53], EntityChicken['Chicken'/129, l='MpServer', x=-92.56, y=62.45, z=239.53], EntityWolf['Wolf'/77, l='MpServer', x=-141.69, y=60.00, z=141.69], EntityItem['item.tile.flower'/128, l='MpServer', x=-86.66, y=65.13, z=179.13], EntityWolf['Wolf'/78, l='MpServer', x=-140.50, y=64.00, z=134.06], EntityItem['item.tile.cloth.white'/79, l='MpServer', x=-138.06, y=64.13, z=134.13], EntityChicken['Chicken'/130, l='MpServer', x=-95.72, y=62.50, z=237.96], EntityBat['Bat'/85, l='MpServer', x=-136.78, y=35.07, z=213.54], EntitySheep['Sheep'/84, l='MpServer', x=-138.72, y=66.00, z=184.22], EntityBat['Bat'/86, l='MpServer', x=-134.77, y=49.79, z=220.42], EntitySheep['Sheep'/81, l='MpServer', x=-136.47, y=65.00, z=188.75], EntityChicken['Chicken'/80, l='MpServer', x=-142.59, y=66.00, z=169.78], EntityChicken['Chicken'/158, l='MpServer', x=-33.47, y=62.00, z=141.47], EntitySheep['Sheep'/83, l='MpServer', x=-129.16, y=69.00, z=185.38], EntitySheep['Sheep'/82, l='MpServer', x=-137.13, y=67.00, z=181.16], EntityChicken['Chicken'/159, l='MpServer', x=-46.44, y=64.00, z=151.63], EntityChicken['Chicken'/93, l='MpServer', x=-114.63, y=72.00, z=137.41], EntityChicken['Chicken'/95, l='MpServer', x=-115.56, y=68.00, z=152.38], EntityChicken['Chicken'/146, l='MpServer', x=-63.56, y=63.00, z=148.56], EntityChicken['Chicken'/94, l='MpServer', x=-119.50, y=70.00, z=139.50], EntityChicken['Chicken'/147, l='MpServer', x=-50.16, y=64.48, z=197.53], EntityBat['Bat'/100, l='MpServer', x=-119.25, y=39.10, z=189.25], EntityChicken['Chicken'/98, l='MpServer', x=-127.50, y=68.00, z=171.50], EntityClientPlayerMP['Player460'/229, l='MpServer', x=-84.13, y=68.93, z=177.28], EntityChicken['Chicken'/99, l='MpServer', x=-119.56, y=65.00, z=173.47], EntityChicken['Chicken'/96, l='MpServer', x=-124.47, y=67.00, z=149.47], EntityChicken['Chicken'/97, l='MpServer', x=-126.53, y=68.00, z=171.38], EntityBat['Bat'/163, l='MpServer', x=-32.94, y=39.10, z=204.50], EntityBat['Bat'/162, l='MpServer', x=-33.47, y=39.10, z=204.75], EntityChicken['Chicken'/161, l='MpServer', x=-32.47, y=67.00, z=167.53], EntityChicken['Chicken'/160, l='MpServer', x=-43.41, y=64.00, z=154.56], EntityChicken['Chicken'/165, l='MpServer', x=-45.56, y=69.00, z=207.44], EntityChicken['Chicken'/164, l='MpServer', x=-39.56, y=64.00, z=199.44], EntityChicken['Chicken'/127, l='MpServer', x=-91.38, y=66.00, z=163.59], EntityChicken['Chicken'/126, l='MpServer', x=-87.13, y=64.47, z=159.64]]
+	Retry entities: 0 total; []
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:440)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2401)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:787)
+	at java.lang.Thread.run(Unknown Source)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.4.7
+	Operating System: Windows 7 (amd64) version 6.1
+	Java Version: 1.7.0_09, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 946912968 bytes (903 MB) / 1056309248 bytes (1007 MB) up to 1056309248 bytes (1007 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 903 (50568 bytes; 0 MB) allocated, 903 (50568 bytes; 0 MB) used
+	Suspicious classes: FML and Forge are installed
+	IntCache: cache: 0, tcache: 0, allocated: 3, tallocated: 63
+	FML: MCP v7.26 FML v4.7.4.520 Minecraft Forge 6.6.0.497 4 mods loaded, 4 mods active
+	mcp [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	FML [Forge Mod Loader] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	Forge [Minecraft Forge] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	bestock2013Tweaks [Bestock Tweaks] (bin) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	LWJGL: 2.4.2
+	OpenGL: GeForce GT 130M/PCIe/SSE2 GL version 3.3.0, NVIDIA Corporation
+	Is Modded: Definitely; Client brand changed to 'forge,fml'
+	Type: Client (map_client.txt)
+	Texture Pack: Default
+	Profiler Position: N/A (disabled)
+	Vec3 Pool Size: 252 (14112 bytes; 0 MB) allocated, 252 (14112 bytes; 0 MB) used

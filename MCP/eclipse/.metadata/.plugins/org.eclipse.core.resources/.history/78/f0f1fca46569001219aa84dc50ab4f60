@@ -1,0 +1,5 @@
+package bestock.mod.tweaks;
+
+public class ITransactor {
+
+}

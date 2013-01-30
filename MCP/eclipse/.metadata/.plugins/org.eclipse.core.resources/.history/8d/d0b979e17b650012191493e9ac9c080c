@@ -1,0 +1,181 @@
+package bestock.mod.tweaks;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import java.nio.FloatBuffer;
+import java.util.Random;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ActiveRenderInfo;
+import net.minecraft.client.renderer.GLAllocation;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityEndPortal;
+import org.lwjgl.opengl.GL11;
+
+@SideOnly(Side.CLIENT)
+public class RenderEndBlock extends TileEntitySpecialRenderer
+{
+    FloatBuffer ModArray = GLAllocation.createDirectFloatBuffer(16);
+
+    
+    public void renderEndBlockTileEntity(TileEntityEndBlock par1TileEntityEndPortal, double par2, double par4, double par6, float par8)
+    {
+        float PlayerX = (float) this.tileEntityRenderer.playerX;
+        float PlayerY = (float) this.tileEntityRenderer.playerY;
+        float PlayerZ = (float) this.tileEntityRenderer.playerZ;
+        GL11.glDisable(GL11.GL_LIGHTING); //disables lighting on block to allow effect
+        Random colorRandomizer = new Random(31100L); //creates randomizer to be used for colors
+        float blockHeight = 1.0F; //height of block (location of top face)
+        
+        int layers = 4; //number of layers to render
+        
+        //for top face
+        for(int lay = 0; lay < layers; lay++)
+        {
+        	GL11.glPushMatrix(); //creates temporary session to modify render
+        	float invLay = (float)(layers - lay); //inverts lay
+        	float distance = 0.2625F; //distance of stars from viewer
+        	float saturation = 1.0F / (invLay + 1.0F); //changes color, layer to layer a bit
+        	
+        	if (lay == 0)
+        	{
+        		//RUN FIRST, sets up black backdrop
+        		this.bindTextureByName("/misc/tunnel.png"); //sets current texture to tunnel.png
+        		saturation = 0.1F; //sets saturation to 10% of original
+        		invLay = 65.0F; //doesn't seem to change much
+        		distance = 1.825F; //bigger the number the smaller the dots for bottom
+        		GL11.glEnable(GL11.GL_BLEND); //Enables transparency for current texture
+        		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); //sets blend function
+        	}
+        	if (lay == 1)
+        	{
+        		this.bindTextureByName("/misc/particlefield.png"); //sets current texture to particlefield.png
+        		GL11.glEnable(GL11.GL_BLEND); //enables transparency for current texture
+        		GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE); //sets factor to 1:1 ratio
+        		distance = 1.6F; //really small dots to start
+        	}
+        	float BOTTOM = (float) (-(par4 + (double)blockHeight)); 
+        	float TEMP1 = BOTTOM + ActiveRenderInfo.objectY;
+        	float TEMP2 = BOTTOM + invLay + ActiveRenderInfo.objectY;
+        	float layPOSITIONY = TEMP1 / TEMP2; //gets amount to translate along Y axis
+        	layPOSITIONY += (float)(par4 + (double) blockHeight); //fixes amount  ***************************************************//change for bottom? GL11.glTranslate(PlayerX, var21, PlayerZ); change var21 to -var21
+        	GL11.glTranslatef(PlayerX, layPOSITIONY, PlayerZ); //translates render
+        	
+        	//DO NOT UNDERSTAND, JUST COPYING
+            GL11.glTexGeni(GL11.GL_S, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_OBJECT_LINEAR);
+            GL11.glTexGeni(GL11.GL_T, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_OBJECT_LINEAR);
+            GL11.glTexGeni(GL11.GL_R, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_OBJECT_LINEAR);
+            GL11.glTexGeni(GL11.GL_Q, GL11.GL_TEXTURE_GEN_MODE, GL11.GL_EYE_LINEAR);
+            GL11.glTexGen(GL11.GL_S, GL11.GL_OBJECT_PLANE, this.CreateArray(1.0F, 0.0F, 0.0F, 0.0F));
+            GL11.glTexGen(GL11.GL_T, GL11.GL_OBJECT_PLANE, this.CreateArray(0.0F, 0.0F, 1.0F, 0.0F));
+            GL11.glTexGen(GL11.GL_R, GL11.GL_OBJECT_PLANE, this.CreateArray(0.0F, 0.0F, 0.0F, 1.0F));
+            GL11.glTexGen(GL11.GL_Q, GL11.GL_EYE_PLANE, this.CreateArray(0.0F, 1.0F, 0.0F, 0.0F));  
+            GL11.glEnable(GL11.GL_TEXTURE_GEN_S);
+            GL11.glEnable(GL11.GL_TEXTURE_GEN_T);
+            GL11.glEnable(GL11.GL_TEXTURE_GEN_R);
+            GL11.glEnable(GL11.GL_TEXTURE_GEN_Q);
+            GL11.glPopMatrix(); //deletes work?
+            GL11.glMatrixMode(GL11.GL_TEXTURE);
+            GL11.glPushMatrix(); //new slate?
+            GL11.glLoadIdentity(); //HUH???
+            //back to understood code, kinda
+            
+            boolean randomShift = false;
+            if(randomShift == true)
+            {
+            	GL11.glTranslatef(0.0F, (float)(Minecraft.getSystemTime() % 700000L) / 7000000.0F, 0.0F); //adds random moving of dots
+            }
+            
+            GL11.glScalef(-distance, -distance, -distance); //setting scale?
+            GL11.glTranslatef(0.5F,  0.5F, 0.0F); //Why?
+            float angleOFrot = (lay * lay * 4321 + lay * 9) * 2.0F; //creates level offset
+            GL11.glRotatef(angleOFrot, 0.0F, 0.0F, 1.0F); //rotates whole texture layer
+        	GL11.glTranslatef(-0.5F, -0.5F, 0.0F); //Why?
+        	GL11.glTranslatef(-PlayerX, -PlayerZ, -PlayerY); //Why?
+        	
+        	TEMP1 = BOTTOM - ActiveRenderInfo.objectY;
+        	
+        	GL11.glTranslatef(ActiveRenderInfo.objectX * invLay / TEMP1, ActiveRenderInfo.objectZ * invLay / TEMP1, -PlayerY); 
+        	
+        	float r = colorRandomizer.nextFloat() * 0.5f + 0.1F;
+        	float g = colorRandomizer.nextFloat() * 0.5f + 0.4F;
+        	float b = colorRandomizer.nextFloat() * 0.5f + 0.5F;
+        	
+        	if (lay == 0)
+        	{
+        		//sets all to 1 if it is the background (so it will be grayscale, depending on tunnel.png saturation)
+        		r = 1.0F;
+        		g = 1.0F;
+        		b = 1.0F;
+        	}
+        	
+        	Tessellator TopFace = Tessellator.instance;
+        	TopFace.startDrawingQuads(); //starts tessellating
+        	
+        	TopFace.setColorRGBA_F(r * saturation, g * saturation, b * saturation, 1.0F); //sets color
+        	
+        	TopFace.addVertex(par2, par4 + (double)blockHeight, par6);
+        	TopFace.addVertex(par2, par4 + (double)blockHeight, par6 + 1.0D);
+        	TopFace.addVertex(par2 + 1.0D, par4 + (double)blockHeight, par6 + 1.0D);
+        	TopFace.addVertex(par2 + 1.0D, par4 + (double)blockHeight, par6);
+        	TopFace.draw();
+        	
+        	//transform for bottom face
+        	GL11.glTranslatef(PlayerX, (layPOSITIONY * -2), PlayerZ); //translates render
+        	
+Tessellator BottomFace = Tessellator.instance;
+            
+            //BottomFace.setNormal(0.0F, 1.0F, 0.0F);
+            BottomFace.startDrawingQuads();
+            BottomFace.setColorRGBA_F(r * saturation, g * saturation, b * saturation, 1.0F); //sets color
+        	BottomFace.addVertex(par2 + 1.0D, par4, par6);
+            BottomFace.addVertex(par2 + 1.0D, par4, par6 + 1.0D);
+            BottomFace.addVertex(par2, par4, par6 + 1.0D);
+            BottomFace.addVertex(par2, par4, par6);
+            BottomFace.draw();
+
+/*Tessellator SideFace = Tessellator.instance;
+            
+            //BottomFace.setNormal(0.0F, 1.0F, 0.0F);
+            BottomFace.startDrawingQuads();
+            BottomFace.setColorRGBA_F(r * saturation, g * saturation, b * saturation, 1.0F); //sets color
+        	BottomFace.addVertex(par2 + 1.0D, par4, par6);
+            BottomFace.addVertex(par2 + 1.0D, par4, par6 + 1.0D);
+            BottomFace.addVertex(par2, par4, par6 + 1.0D);
+            BottomFace.addVertex(par2, par4, par6);
+            BottomFace.draw();*/
+        	
+        	GL11.glPopMatrix(); //clears out changes made
+        	GL11.glMatrixMode(GL11.GL_MODELVIEW);
+        	//on to next layer!!!!!!!!!!!!!
+        }
+        
+        //ALL FACES DONE RENDERING
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDisable(GL11.GL_TEXTURE_GEN_S);
+        GL11.glDisable(GL11.GL_TEXTURE_GEN_T);
+        GL11.glDisable(GL11.GL_TEXTURE_GEN_R);
+        GL11.glDisable(GL11.GL_TEXTURE_GEN_Q);
+        GL11.glEnable(GL11.GL_LIGHTING);
+
+        
+        
+    }
+
+    
+    
+   
+    private FloatBuffer CreateArray(float par1, float par2, float par3, float par4)
+    {
+        this.ModArray.clear(); //clears out values
+        this.ModArray.put(par1).put(par2).put(par3).put(par4); //puts values in array
+        this.ModArray.flip(); //flips array
+        return this.ModArray; //returns new array
+    }
+
+    public void renderTileEntityAt(TileEntity par1TileEntity, double par2, double par4, double par6, float par8)
+    {
+        this.renderEndBlockTileEntity((TileEntityEndBlock)par1TileEntity, par2, par4, par6, par8);
+    }
+}
