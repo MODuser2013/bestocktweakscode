@@ -1,5 +1,6 @@
 package net.minecraft.block;
 
+import bestock.general.BaseModTweaks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
@@ -17,7 +18,7 @@ public class BlockEndPortal extends BlockContainer
     /**
      * true if the enderdragon has been killed - allows end portal blocks to be created in the end
      */
-    public static boolean bossDefeated = false;
+    public static boolean bossDefeated = false;  
 
     protected BlockEndPortal(int par1, Material par2Material)
     {

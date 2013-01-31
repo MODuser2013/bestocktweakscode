@@ -1,41 +1,71 @@
 package bestock.smartquarry;
 
+import java.util.Random;
+
 import bestock.general.BaseModTweaks;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class BlockQuarry extends BlockContainer {
 
+	int cooldownPeriod = 0;
+	
 	public BlockQuarry(int id, Material mat) {
 		super(id, 1, mat);
 		this.setCreativeTab(BaseModTweaks.customTab);
+		
 	}
 
+	
+	
 	@Override
 	public TileEntity createNewTileEntity(World var1) {
 		return new TileEntityQuarry();
 	}
 
 	
-	
 	/**
      * Called upon block activation (right click on the block.)
      */
     public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
+    	
         TileEntityQuarry myEnt = (TileEntityQuarry) par1World.getBlockTileEntity(par2, par3, par4);
-        int fuel = myEnt.FuelInBurn;
-        int totalFuel = 0;
-        if(myEnt.inventory[27] != null)
+        ItemStack inventory = myEnt.inventory[27];
+        if(inventory != null)
         {
-        totalFuel = myEnt.inventory[27].stackSize;
+        	//inventory has some, merge stacks
+        	
         }
-        par5EntityPlayer.addChatMessage("FuelBurning= " + fuel + " TotalFuel= " + totalFuel);
-        return true;
+        else if(par5EntityPlayer.getHeldItem() != null)
+        {
+        	//inventory empty, replace with held
+        	if(myEnt.validFuel(par5EntityPlayer.getHeldItem().itemID))
+        	{
+        		//its valid fuel, replace stack with this
+        		myEnt.inventory[27] = new ItemStack(par5EntityPlayer.getHeldItem().getItem(), par5EntityPlayer.getHeldItem().stackSize);
+        		myEnt.AllFuelBurnt = false;  //resets fuel flag
+        	}
+        }
+        else
+        {
+        	//player hands is empty so display data
+        	
+        }
+        boolean isActive = myEnt.active;
+    	boolean FuelEmpty = myEnt.AllFuelBurnt;
+    	int fuelstacks = 0; if(myEnt.inventory[27] != null){fuelstacks = myEnt.inventory[27].stackSize;}
+    	par5EntityPlayer.addChatMessage("A=" + isActive + " F=" + FuelEmpty + " FS=" + fuelstacks);
+        
+    	
+    	
+    	return true;
     }
     
 }

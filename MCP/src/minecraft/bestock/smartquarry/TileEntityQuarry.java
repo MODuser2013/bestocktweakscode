@@ -9,13 +9,14 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemCoal;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class TileEntityQuarry extends TileEntity implements IInventory{
-
-	int FuelInBurn = 12; //each coal = 12, lava = 24
+	public ItemStack inventory[] = new ItemStack[28]; //actual inventory
 	
+	int FuelInBurn = 12; //each coal = 12, lava = 2	
 	boolean AllFuelBurnt = false; //happens when there is no fuel in the inventory slot
 	boolean active = true; //is quarry digging
 	
@@ -29,8 +30,8 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	int cycleTick = 0;
 	int speed = 2;
 	public TileEntityQuarry() {
-		ItemStack origFuel = new ItemStack(Item.coal, 10);
-		inventory[27] = origFuel;
+		//ItemStack origFuel = new ItemStack(Item.coal, 1);
+		//inventory[27] = origFuel;
 		
 	}
 	
@@ -47,7 +48,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 			int RealZ = this.zCoord - (height - z) - 1;
 			
 			int id = this.getWorldObj().getBlockId(RealX, RealY, RealZ); //gets block id
-			System.out.println(id);
+			
 			//checks if it is valid and if it is a stair block
 			if(isMineableBlock(id) && isStairBlock(RealX, RealY, RealZ) == false)
 			{
@@ -62,7 +63,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 
 	
 
-	private boolean validFuel(int id)
+	public boolean validFuel(int id)
 	{
 		boolean isFuel = false;
 		if(id == Item.coal.itemID || id == Item.bucketLava.itemID)
@@ -168,17 +169,60 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
  public void onInventoryChanged()
 	{
 		//check for coal and update fuel
-		/*if(validFuel(inventory[27].itemID))
+		if(validFuel(inventory[27].itemID))
 		{
 			//resets fuel flag letting the quarry continue
 			AllFuelBurnt = false;
-		}*/
+		}
 	}
 	
 	
 	
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+	    super.readFromNBT(nbt);
+	    this.x = nbt.getInteger("headX");
+	    this.y = nbt.getInteger("headY");
+	    this.z = nbt.getInteger("headZ");
+	    
+	    this.FuelInBurn = nbt.getInteger("FuelInBurn");
+	    int fueltype = nbt.getInteger("fuelType");
+	    int fuelamount = nbt.getInteger("FuelAmount");
+	    if(fueltype == 0 && fuelamount == 0)
+	    {
+	    this.inventory[27] = null;
+	    }
+	    else
+	    {
+	    this.inventory[27] = new ItemStack(Item.itemsList[nbt.getInteger("fuelType")], nbt.getInteger("FuelAmount")); //reloads fuel
+	    }
+	    this.active = nbt.getBoolean("isActive");
+	    this.speed = nbt.getInteger("speed");
+	}
+	@Override
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+	    super.writeToNBT(nbt);
+	    //nbt.setString("visitor1", visitor1);
+	    nbt.setInteger("headX", x);
+	    nbt.setInteger("headY", y);
+	    nbt.setInteger("headZ", z);
+	    
+	    nbt.setInteger("FuelInBurn", FuelInBurn);
+	    int fuelType = 0; if(this.inventory[27] != null) {fuelType = inventory[27].itemID;}
+	    int fuelAmount = 0; if(this.inventory[27] != null){fuelAmount = inventory[27].stackSize;}
+	    nbt.setInteger("fuelType", fuelType);
+	    nbt.setInteger("FuelAmount", fuelAmount);
+	    
+	    nbt.setBoolean("isActive", active);
+	    nbt.setInteger("speed", speed);
+	}
+	
+	
 	//INVENTORY CODE
-	public ItemStack inventory[] = new ItemStack[28]; //actual inventory
+	
 	
 	@Override
 	public int getSizeInventory() {

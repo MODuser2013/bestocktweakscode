@@ -1,0 +1,256 @@
+package bestock.smartquarry;
+
+import java.util.List;
+
+import net.minecraft.block.Block;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemCoal;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class TileEntityQuarry extends TileEntity implements IInventory{
+
+	int FuelInBurn = 12; //each coal = 12, lava = 24
+	
+	boolean AllFuelBurnt = false; //happens when there is no fuel in the inventory slot
+	boolean active = true; //is quarry digging
+	
+	//mine head location relative to quarry
+	int x = 0;
+	int y = 0; 
+	int z = 0;
+	
+	int width = 10;
+	int height = 2;
+	int cycleTick = 0;
+	int speed = 2;
+	public TileEntityQuarry() {
+		ItemStack origFuel = new ItemStack(Item.coal, 1);
+		inventory[27] = origFuel;
+		
+	}
+	
+	@Override
+	public void updateEntity()
+	{
+		//checks if fuel, space and if active are all true
+		
+		if(active == true && (cycleTick % speed) == 0 && AllFuelBurnt == false)
+		{
+			
+			int RealX = this.xCoord - ((width / 2) - x);
+			int RealY = this.yCoord - y - 1;
+			int RealZ = this.zCoord - (height - z) - 1;
+			
+			int id = this.getWorldObj().getBlockId(RealX, RealY, RealZ); //gets block id
+			
+			//checks if it is valid and if it is a stair block
+			if(isMineableBlock(id) && isStairBlock(RealX, RealY, RealZ) == false)
+			{
+				mineBlock(RealX, RealY, RealZ); //actually mines the block and adds to inventory
+				updateFuel(); //updates fuel amount
+			}
+			updateMiningHead(); //updates mineing head *obviously*
+			
+		}
+		cycleTick++;
+	}
+
+	
+
+	public boolean validFuel(int id)
+	{
+		boolean isFuel = false;
+		if(id == Item.coal.itemID || id == Item.bucketLava.itemID)
+		{
+			isFuel = true;
+		}
+		
+		return isFuel;
+	}
+	private int amountFuel(int id)
+	{
+		if(id == Item.coal.itemID)
+		{
+			return 12;
+		}
+		if(id == Item.bucketLava.itemID){
+			return 24;
+		}
+		//if all fail, return none
+		return 0;
+	}
+	private void updateFuel()
+	{
+		//keeps track of fuel
+		if(FuelInBurn == 0)
+		{
+			int id = -1; // = inventory[27].itemID;
+			int amount = 0; // = inventory[27].stackSize;
+			if(inventory[27] != null)
+			{
+				id = inventory[27].itemID;
+				amount = inventory[27].stackSize;
+			}
+			if(validFuel(id) && amount > 0)
+			{
+				decrStackSize(27, 1); //pulls out 1 of fuel item
+				FuelInBurn += amountFuel(id);
+			}
+			else
+			{
+				AllFuelBurnt = true;
+			}
+		}
+		else
+		{
+			FuelInBurn -= 1;
+		}
+	}
+	private boolean isMineableBlock(int id)
+	{
+		//checks if block is mineable
+		try
+		{
+		if(id == Block.bedrock.blockID || id == Block.chest.blockID)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		}
+		catch(Exception e)
+		{
+			System.out.println("x=" + x + " y=" + y + " z=" + z);
+			e.printStackTrace();
+			return false;
+		}
+	}
+	private boolean isStairBlock(int x, int y, int z)
+	{
+		//keeps track of the stairs
+		return false;
+	}
+	private void mineBlock(int x1, int y1, int z1)
+	{
+	this.getWorldObj().setBlockWithNotify(x1, y1, z1, 0);
+	}
+	public void updateMiningHead()
+	{
+		if(x == width)
+		{
+			x = 0; //resets x
+			z++; //increments z
+			if(z == height + 1)
+			{
+				x = 0;
+				z = 0;
+				y++;
+				if((this.yCoord - y) == 1)
+				{
+					active = false; //shuts down quarry
+				}
+			}
+		}
+		else
+		{
+			x++;
+		}
+	}
+	@Override
+	
+ public void onInventoryChanged()
+	{
+		//check for coal and update fuel
+		if(validFuel(inventory[27].itemID))
+		{
+			//resets fuel flag letting the quarry continue
+			AllFuelBurnt = false;
+		}
+	}
+	
+	
+	
+	
+	//INVENTORY CODE
+	public ItemStack inventory[] = new ItemStack[28]; //actual inventory
+	
+	@Override
+	public int getSizeInventory() {
+		return inventory.length; /*storage + fuel*/
+		}
+
+	@Override
+	public ItemStack getStackInSlot(int slotIndex) {
+		return inventory[slotIndex];
+		}
+
+	@Override
+	public ItemStack decrStackSize(int slotIndex, int amount) {
+		// This gets the stack with the slot number you want
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		// Then it checks to make sure it has something in it
+		if(stack != null){
+		// Then it checks to make sure that it has something that is equal or lesser than the amount you want to add
+		if(stack.stackSize <= amount){
+		setInventorySlotContents(slotIndex, null);
+		} else{
+		stack = stack.splitStack(amount);
+		if(stack.stackSize == 0){
+		setInventorySlotContents(slotIndex, null);
+		}
+		}
+		}
+		// Then it returns the stack
+		return stack;
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int slotIndex) {
+		// This gets the stack in the slot you chose
+		ItemStack stack = getStackInSlot(slotIndex);
+
+		// This checks to make sure it has something in it
+		if(stack != null){
+		setInventorySlotContents(slotIndex, null);
+		}
+
+		// Then it returns the stack
+		return stack;
+	}
+
+	@Override
+	public void setInventorySlotContents(int slot, ItemStack stack) {
+		inventory[slot] = stack;
+		// This checks to make sure the stack is not nothing, and then makes sure the stack is not going over the limit
+		// Of the stack
+		if(stack != null && stack.stackSize > getInventoryStackLimit()){
+		stack.stackSize = getInventoryStackLimit();
+		}
+	}
+
+	@Override
+	public String getInvName() {return "smartquarry.inv";}
+
+	@Override
+	public int getInventoryStackLimit() {return 64;}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer player) {
+		return worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) == this && player.getDistanceSq(xCoord + 0.5, yCoord + 0.5, zCoord + 0.5) < 64;
+	}
+
+	@Override
+	public void openChest() {/*DUMMY METHOD*/}
+
+	@Override
+	public void closeChest() {/*DUMMY METHOD*/}
+}
+
