@@ -29,7 +29,7 @@ public class BlockQuarry extends BlockContainer {
     {
         TileEntityQuarry myEnt = (TileEntityQuarry) par1World.getBlockTileEntity(par2, par3, par4);
         int fuel = myEnt.FuelInBurn;
-        int totalFuel = 0;
+        int totalFuel = -1;
         if(myEnt.inventory[27] != null)
         {
         totalFuel = myEnt.inventory[27].stackSize;

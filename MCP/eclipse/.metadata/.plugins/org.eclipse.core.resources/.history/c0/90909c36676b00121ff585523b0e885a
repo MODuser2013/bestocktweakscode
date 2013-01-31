@@ -25,12 +25,9 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	int z = 0;
 	
 	int width = 10;
-	int height = 2;
-	int cycleTick = 0;
-	int speed = 2;
+	int height = 10;
+	
 	public TileEntityQuarry() {
-		ItemStack origFuel = new ItemStack(Item.coal, 10);
-		inventory[27] = origFuel;
 		
 	}
 	
@@ -38,8 +35,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	public void updateEntity()
 	{
 		//checks if fuel, space and if active are all true
-		
-		if(active == true && (cycleTick % speed) == 0 && AllFuelBurnt == false)
+		if(active == true)
 		{
 			
 			int RealX = this.xCoord - ((width / 2) - x);
@@ -52,12 +48,11 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 			if(isMineableBlock(id) && isStairBlock(RealX, RealY, RealZ) == false)
 			{
 				mineBlock(RealX, RealY, RealZ); //actually mines the block and adds to inventory
-				updateFuel(); //updates fuel amount
+				//updateFuel(); //updates fuel amount
 			}
 			updateMiningHead(); //updates mineing head *obviously*
 			
 		}
-		cycleTick++;
 	}
 
 	
@@ -89,13 +84,8 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 		//keeps track of fuel
 		if(FuelInBurn == 0)
 		{
-			int id = -1; // = inventory[27].itemID;
-			int amount = 0; // = inventory[27].stackSize;
-			if(inventory[27] != null)
-			{
-				id = inventory[27].itemID;
-				amount = inventory[27].stackSize;
-			}
+			int id = inventory[27].itemID;
+			int amount = inventory[27].stackSize;
 			if(validFuel(id) && amount > 0)
 			{
 				decrStackSize(27, 1); //pulls out 1 of fuel item
@@ -178,7 +168,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	
 	
 	//INVENTORY CODE
-	public ItemStack inventory[] = new ItemStack[28]; //actual inventory
+	private ItemStack inventory[] = new ItemStack[28]; //actual inventory
 	
 	@Override
 	public int getSizeInventory() {

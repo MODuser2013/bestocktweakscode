@@ -25,7 +25,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	int z = 0;
 	
 	int width = 10;
-	int height = 2;
+	int height = 10;
 	int cycleTick = 0;
 	int speed = 2;
 	public TileEntityQuarry() {

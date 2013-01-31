@@ -1,9 +1,0 @@
-package bestock.smartquarry;
-
-public class TileEntityQuarry {
-
-	public TileEntityQuarry() {
-		// TODO Auto-generated constructor stub
-	}
-
-}

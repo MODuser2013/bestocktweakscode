@@ -25,9 +25,8 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	int z = 0;
 	
 	int width = 10;
-	int height = 2;
+	int height = 10;
 	int cycleTick = 0;
-	int speed = 2;
 	public TileEntityQuarry() {
 		ItemStack origFuel = new ItemStack(Item.coal, 10);
 		inventory[27] = origFuel;
@@ -39,7 +38,7 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	{
 		//checks if fuel, space and if active are all true
 		
-		if(active == true && (cycleTick % speed) == 0 && AllFuelBurnt == false)
+		if(active == true && (cycleTick % 5) == 0)
 		{
 			
 			int RealX = this.xCoord - ((width / 2) - x);
