@@ -21,4 +21,8 @@ public class CreativeTabTweaks extends CreativeTabs
     {
         return Block.brick.blockID;
     }
+    public String getTranslatedTabLabel()
+    {
+    return "user2013 Tweaks"; //The name of the tab ingame
+    }
 }

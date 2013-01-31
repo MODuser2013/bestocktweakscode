@@ -17,6 +17,15 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	int FuelInBurn = 12; //each coal = 12, lava = 24
 	
 	boolean AllFuelBurnt = false; //happens when there is no fuel in the inventory slot
+	boolean active = true; //is quarry digging
+	
+	//mine head location relative to quarry
+	int x = 0;
+	int y = 0; 
+	int z = 0;
+	
+	int width = 10;
+	int height = 10;
 	
 	public TileEntityQuarry() {
 		
@@ -26,7 +35,24 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	public void updateEntity()
 	{
 		//checks if fuel, space and if active are all true
-		
+		if(active == true)
+		{
+			
+			int RealX = this.xCoord - ((width / 2) - x);
+			int RealY = this.yCoord - y - 1;
+			int RealZ = this.zCoord - (height - z) - 1;
+			
+			int id = this.getWorldObj().getBlockId(RealX, RealY, RealZ); //gets block id
+			System.out.println(id);
+			//checks if it is valid and if it is a stair block
+			if(isMineableBlock(id) && isStairBlock(RealX, RealY, RealZ) == false)
+			{
+				mineBlock(RealX, RealY, RealZ); //actually mines the block and adds to inventory
+				//updateFuel(); //updates fuel amount
+			}
+			updateMiningHead(); //updates mineing head *obviously*
+			
+		}
 	}
 
 	
@@ -43,8 +69,15 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	}
 	private int amountFuel(int id)
 	{
-		
-		return 12;
+		if(id == Item.coal.itemID)
+		{
+			return 12;
+		}
+		if(id == Item.bucketLava.itemID){
+			return 24;
+		}
+		//if all fail, return none
+		return 0;
 	}
 	private void updateFuel()
 	{
@@ -71,7 +104,9 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	private boolean isMineableBlock(int id)
 	{
 		//checks if block is mineable
-		if(id == Block.bedrock.blockID || id == Block.chest.blockID || id == this.blockType.blockID)
+		try
+		{
+		if(id == Block.bedrock.blockID || id == Block.chest.blockID)
 		{
 			return false;
 		}
@@ -79,42 +114,55 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 		{
 			return true;
 		}
+		}
+		catch(Exception e)
+		{
+			System.out.println("x=" + x + " y=" + y + " z=" + z);
+			e.printStackTrace();
+			return false;
+		}
 	}
 	private boolean isStairBlock(int x, int y, int z)
 	{
 		//keeps track of the stairs
 		return false;
 	}
-	private void mineBlock(int x, int y, int z)
+	private void mineBlock(int x1, int y1, int z1)
 	{
-		//mines block and adds to inventory
-		World curWorld = getWorldObj();
-		int bId = curWorld.getBlockId(x, y, z);
-		int meta = curWorld.getBlockMetadata(x,y,z);
-		List<ItemStack> blockDrops = Block.blocksList[bId].getBlockDropped(curWorld, x, y, z, meta, 0);
-		
-		for (ItemStack item : blockDrops) 
+	this.getWorldObj().setBlockWithNotify(x1, y1, z1, 0);
+	}
+	public void updateMiningHead()
+	{
+		if(x == width)
 		{
-			float var = 0.7F;
-			double dx = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
-			double dy = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
-			double dz = curWorld.rand.nextFloat() * var + (1.0F - var) * 0.5D;
-			EntityItem entityitem = new EntityItem(curWorld, this.xCoord + dx, this.yCoord + dy, this.zCoord + dz, item);
-		
-			entityitem.lifespan = 1200;
-			entityitem.delayBeforeCanPickup = 10;
+			x = 0; //resets x
+			z++; //increments z
+			if(z == height + 1)
+			{
+				x = 0;
+				z = 0;
+				y++;
+				if((this.yCoord - y) == 1)
+				{
+					active = false; //shuts down quarry
+				}
+			}
 		}
-		this.getWorldObj().setBlockWithNotify(x, y, z, 0); //sets block to air
+		else
+		{
+			x++;
+		}
 	}
 	@Override
-	public void onInventoryChanged()
+	
+ public void onInventoryChanged()
 	{
 		//check for coal and update fuel
-		if(validFuel(inventory[27].itemID))
+		/*if(validFuel(inventory[27].itemID))
 		{
 			//resets fuel flag letting the quarry continue
 			AllFuelBurnt = false;
-		}
+		}*/
 	}
 	
 	
@@ -194,3 +242,4 @@ public class TileEntityQuarry extends TileEntity implements IInventory{
 	@Override
 	public void closeChest() {/*DUMMY METHOD*/}
 }
+

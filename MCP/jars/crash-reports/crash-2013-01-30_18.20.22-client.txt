@@ -1,0 +1,78 @@
+---- Minecraft Crash Report ----
+// Hi. I'm Minecraft, and I'm a crashaholic.
+
+Time: 1/30/13 6:20 PM
+Description: Ticking tile entity
+
+java.lang.NullPointerException
+	at bestock.smartquarry.TileEntityQuarry.mineBlock(TileEntityQuarry.java:135)
+	at bestock.smartquarry.TileEntityQuarry.updateEntity(TileEntityQuarry.java:50)
+	at net.minecraft.world.World.updateEntities(World.java:2151)
+	at net.minecraft.client.Minecraft.runTick(Minecraft.java:1863)
+	at net.minecraft.client.Minecraft.runGameLoop(Minecraft.java:846)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:771)
+	at java.lang.Thread.run(Unknown Source)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Stacktrace:
+	at bestock.smartquarry.TileEntityQuarry.mineBlock(TileEntityQuarry.java:135)
+	at bestock.smartquarry.TileEntityQuarry.updateEntity(TileEntityQuarry.java:50)
+
+-- Tile entity being ticked --
+Details:
+	Name: tweakSmartQuarryENTITY // bestock.smartquarry.TileEntityQuarry
+	Block type: ID #0
+	Block data value: 0 / 0x0 / 0b0000
+	Block location: World: (7,237,6), Chunk: (at 7,14,6 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+Stacktrace:
+	at net.minecraft.world.World.updateEntities(World.java:2151)
+
+-- Affected level --
+Details:
+	Level name: MpServer
+	All players: 1 total; [EntityClientPlayerMP['Player506'/16, l='MpServer', x=7.03, y=238.62, z=8.45]]
+	Chunk stats: MultiplayerChunkCache: 441
+	Level seed: 0
+	Level generator: ID 01 - flat, ver 0. Features enabled: false
+	Level generator options: 
+	Level spawn location: World: (0,4,0), Chunk: (at 0,0,0 in 0,0; contains blocks 0,0,0 to 15,255,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,0,0 to 511,255,511)
+	Level time: 10365 game time, 10365 day time
+	Level dimension: 0
+	Level storage version: 0x00000 - Unknown?
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: false
+	Forced entities: 13 total; [EntityClientPlayerMP['Player506'/16, l='MpServer', x=7.03, y=238.62, z=8.45], EntityCow['Cow'/4, l='MpServer', x=7.66, y=237.00, z=66.65], EntityCow['Cow'/5, l='MpServer', x=8.78, y=237.00, z=72.78], EntityCow['Cow'/6, l='MpServer', x=7.19, y=237.00, z=71.19], EntityCow['Cow'/7, l='MpServer', x=7.81, y=237.00, z=77.53], EntityPig['Pig'/8, l='MpServer', x=28.16, y=237.00, z=-51.85], EntityPig['Pig'/9, l='MpServer', x=27.84, y=237.00, z=-45.79], EntityPig['Pig'/10, l='MpServer', x=38.14, y=237.00, z=-49.22], EntityPig['Pig'/11, l='MpServer', x=27.66, y=237.00, z=-50.69], EntityPig['Pig'/12, l='MpServer', x=76.34, y=237.00, z=57.16], EntityPig['Pig'/13, l='MpServer', x=78.97, y=237.00, z=58.97], EntityPig['Pig'/14, l='MpServer', x=82.19, y=237.00, z=60.09], EntityPig['Pig'/15, l='MpServer', x=81.91, y=237.00, z=64.31]]
+	Retry entities: 0 total; []
+Stacktrace:
+	at net.minecraft.client.multiplayer.WorldClient.addWorldInfoToCrashReport(WorldClient.java:440)
+	at net.minecraft.client.Minecraft.addGraphicsAndWorldToCrashReport(Minecraft.java:2401)
+	at net.minecraft.client.Minecraft.run(Minecraft.java:787)
+	at java.lang.Thread.run(Unknown Source)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.4.7
+	Operating System: Windows 7 (amd64) version 6.1
+	Java Version: 1.7.0_09, Oracle Corporation
+	Java VM Version: Java HotSpot(TM) 64-Bit Server VM (mixed mode), Oracle Corporation
+	Memory: 788331528 bytes (751 MB) / 1056309248 bytes (1007 MB) up to 1056309248 bytes (1007 MB)
+	JVM Flags: 3 total; -Xincgc -Xmx1024M -Xms1024M
+	AABB Pool Size: 18934 (1060304 bytes; 1 MB) allocated, 462 (25872 bytes; 0 MB) used
+	Suspicious classes: FML and Forge are installed
+	IntCache: cache: 0, tcache: 0, allocated: 0, tallocated: 0
+	FML: MCP v7.26 FML v4.7.4.520 Minecraft Forge 6.6.0.497 4 mods loaded, 4 mods active
+	mcp [Minecraft Coder Pack] (minecraft.jar) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	FML [Forge Mod Loader] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	Forge [Minecraft Forge] (coremods) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	user2013Tweaks [User2013 Tweaks] (bin) Unloaded->Constructed->Pre-initialized->Initialized->Post-initialized->Available->Available->Available
+	LWJGL: 2.4.2
+	OpenGL: GeForce GT 130M/PCIe/SSE2 GL version 3.3.0, NVIDIA Corporation
+	Is Modded: Definitely; Client brand changed to 'forge,fml'
+	Type: Client (map_client.txt)
+	Texture Pack: Default
+	Profiler Position: N/A (disabled)
+	Vec3 Pool Size: 465 (26040 bytes; 0 MB) allocated, 84 (4704 bytes; 0 MB) used
