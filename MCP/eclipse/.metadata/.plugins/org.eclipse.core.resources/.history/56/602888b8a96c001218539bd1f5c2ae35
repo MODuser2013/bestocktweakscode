@@ -1,5 +1,6 @@
 package net.minecraft.block;
 
+import bestock.general.BaseModTweaks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;

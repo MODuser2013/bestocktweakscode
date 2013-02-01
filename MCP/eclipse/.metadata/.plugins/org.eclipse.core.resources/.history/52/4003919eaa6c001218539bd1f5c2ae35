@@ -143,7 +143,22 @@ public class BlockDispenser extends BlockContainer
         }
         else
         {
-        	
+        	EntityPlayerMP target = (EntityPlayerMP) par5EntityPlayer;
+        	NBTTagCompound tag = target.getEntityData();
+
+        	NBTBase modeTag = tag.getTag("PlayerRank");
+        	int rank;
+        	if(modeTag == null)
+        	{
+        		//player has no rank
+        		rank = 0;
+        	}
+        	else
+        	{
+        		//player has rank, display to sender
+        		rank = tag.getInteger("PlayerRank");
+        	}
+        	par5EntityPlayer.addChatMessage("You have a rank of " + rank);
             TileEntityDispenser var10 = (TileEntityDispenser)par1World.getBlockTileEntity(par2, par3, par4);
 
             if (var10 != null)
