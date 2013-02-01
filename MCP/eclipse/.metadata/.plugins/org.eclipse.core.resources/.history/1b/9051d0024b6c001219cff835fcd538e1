@@ -64,8 +64,7 @@ public class CommandRankUp extends CommandBase {
 								+ " used Rank Up on " + target.getEntityName());
 					}
 				} else {
-					//not high enough rank
-					sender.sendChatToPlayer("You do not have a high enough rank to Rank up " + target.getEntityName());
+					// do nothing
 				}
 			}
 			sender.sendChatToPlayer("You have no Rank, command not allowed");
