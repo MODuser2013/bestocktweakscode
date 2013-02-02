@@ -7,7 +7,11 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.MinecraftForge;
@@ -40,8 +44,14 @@ public class BaseModRank{
 	@SidedProxy(clientSide="bestock.ranksystem.ClientProxyTweaks", serverSide="bestock.ranksystem.CommonProxyTweaks")
 	public static CommonProxyTweaks proxy;
 	
+	//redstone RANK Blocks
+
+	public static Block buttonRank;
+	public static Block doorRank;
 	
+	public static Item doorRankItem;
 	@PreInit
+
 	public void preInit(FMLPreInitializationEvent event) {
 		//code run before mod load
 		
@@ -50,6 +60,16 @@ public class BaseModRank{
 	@Init
 	public void init(FMLInitializationEvent event) {
 		//code run during load
+		buttonRank = new BlockButtonRANK(537, 1, false); //initializes object
+		doorRankItem = new ItemDoorRANK(667, Material.wood);
+		
+		doorRank = new BlockDoorRANK(538, Material.wood);
+		LanguageRegistry.addName(buttonRank, "StoneButtonRank"); //sets readable name
+		LanguageRegistry.addName(doorRank, "RankDoor");
+		GameRegistry.registerBlock(buttonRank, "StoneButtonRank");
+		GameRegistry.registerItem(doorRankItem, "WoodDoorRankItem");
+		GameRegistry.registerBlock(doorRank, "WoodDoorRank");
+		
 		MinecraftForge.EVENT_BUS.register(new CommandEventHandler());
 	}
 
@@ -75,5 +95,25 @@ public class BaseModRank{
 		manager.registerCommand(new CommandGetRank());
 	}
 	
+	
+	public int getRank(EntityPlayer player)
+	{
+		int rank = 0;
+		NBTTagCompound tag = ((EntityPlayerMP) player).getEntityData();
+
+    	NBTBase modeTag = tag.getTag("PlayerRank");
+    	
+    	if(modeTag == null)
+    	{
+    		//player has no rank
+    		rank = 0;
+    	}
+    	else
+    	{
+    		//player has rank, display to sender
+    		rank = tag.getInteger("PlayerRank");
+    	}
+    	return rank;
+	}
 	
 }

@@ -67,8 +67,8 @@
               <children xsi:type="advanced:Placeholder" xmi:id="_G3ZeM2DcEeKsFqeIA-LDog" elementId="org.eclipse.ui.navigator.ProjectExplorer" toBeRendered="false" ref="_G3K0sGDcEeKsFqeIA-LDog"/>
               <children xsi:type="advanced:Placeholder" xmi:id="_G3ZeNGDcEeKsFqeIA-LDog" elementId="org.eclipse.jdt.junit.ResultView" toBeRendered="false" ref="_G3YQEGDcEeKsFqeIA-LDog"/>
             </children>
-            <children xsi:type="basic:PartSashContainer" xmi:id="_G3ZeNWDcEeKsFqeIA-LDog" containerData="7496" selectedElement="_G3ZeNmDcEeKsFqeIA-LDog">
-              <children xsi:type="basic:PartSashContainer" xmi:id="_G3ZeNmDcEeKsFqeIA-LDog" containerData="7040" selectedElement="_G3ZeN2DcEeKsFqeIA-LDog" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_G3ZeNWDcEeKsFqeIA-LDog" containerData="7496" selectedElement="_G3ZePGDcEeKsFqeIA-LDog">
+              <children xsi:type="basic:PartSashContainer" xmi:id="_G3ZeNmDcEeKsFqeIA-LDog" containerData="6272" selectedElement="_G3ZeN2DcEeKsFqeIA-LDog" horizontal="true">
                 <children xsi:type="advanced:Placeholder" xmi:id="_G3ZeN2DcEeKsFqeIA-LDog" elementId="org.eclipse.ui.editorss" containerData="7528" ref="_G202cGDcEeKsFqeIA-LDog"/>
                 <children xsi:type="basic:PartStack" xmi:id="_G3ZeOGDcEeKsFqeIA-LDog" elementId="right" toBeRendered="false" containerData="2472">
                   <tags>newtablook</tags>
@@ -78,7 +78,7 @@
                   <children xsi:type="advanced:Placeholder" xmi:id="_G3ZeO2DcEeKsFqeIA-LDog" elementId="org.eclipse.ant.ui.views.AntView" toBeRendered="false" ref="_G3XB8GDcEeKsFqeIA-LDog"/>
                 </children>
               </children>
-              <children xsi:type="basic:PartStack" xmi:id="_G3ZePGDcEeKsFqeIA-LDog" elementId="bottom" containerData="2960" selectedElement="_G3ZeQWDcEeKsFqeIA-LDog">
+              <children xsi:type="basic:PartStack" xmi:id="_G3ZePGDcEeKsFqeIA-LDog" elementId="bottom" containerData="3728" selectedElement="_G3ZeQWDcEeKsFqeIA-LDog">
                 <tags>newtablook</tags>
                 <tags>org.eclipse.e4.secondaryDataStack</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_G3ZePWDcEeKsFqeIA-LDog" elementId="org.eclipse.ui.views.ProblemView" ref="_G3K0sWDcEeKsFqeIA-LDog"/>
@@ -182,12 +182,37 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_G202cGDcEeKsFqeIA-LDog" elementId="org.eclipse.ui.editorss" selectedElement="_G21dgGDcEeKsFqeIA-LDog">
-      <children xsi:type="basic:PartStack" xmi:id="_G21dgGDcEeKsFqeIA-LDog" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_6CdR4GypEeKKFLzKTyoFow">
+      <children xsi:type="basic:PartStack" xmi:id="_G21dgGDcEeKsFqeIA-LDog" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_Q5x9MGzREeKMXrcVzcOwew">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
         <children xsi:type="basic:Part" xmi:id="_6CdR4GypEeKKFLzKTyoFow" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="CommandGetRank.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/bestock/ranksystem/CommandGetRank.java" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/CommandGetRank.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;484&quot; selectionOffset=&quot;1043&quot; selectionTopPixel=&quot;332&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/CommandGetRank.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1072&quot; selectionTopPixel=&quot;332&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_Q5x9MGzREeKMXrcVzcOwew" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="BaseModRank.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/bestock/ranksystem/BaseModRank.java" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/BaseModRank.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2378&quot; selectionTopPixel=&quot;287&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_13nh8GzREeKMXrcVzcOwew" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="BlockButtonRANK.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/bestock/ranksystem/BlockButtonRANK.java" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/BlockButtonRANK.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;9133&quot; selectionTopPixel=&quot;3485&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_8OUhIGzYEeKMXrcVzcOwew" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="BlockDoorRANK.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/bestock/ranksystem/BlockDoorRANK.java" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/BlockDoorRANK.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1066&quot; selectionTopPixel=&quot;5895&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_99g78GzaEeKMXrcVzcOwew" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ItemDoor.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/net/minecraft/item/ItemDoor.java" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/net/minecraft/item/ItemDoor.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;416&quot; selectionTopPixel=&quot;0&quot;/>&#xD;&#xA;&lt;/editor>"/>
+          <tags>Editor</tags>
+          <tags>removeOnHide</tags>
+        </children>
+        <children xsi:type="basic:Part" xmi:id="_usCEAGzcEeKMXrcVzcOwew" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="ItemDoorRANK.java" iconURI="platform:/plugin/org.eclipse.jdt.ui//icons/full/obj16/jcu_obj.gif" tooltip="Minecraft/src/bestock/ranksystem/ItemDoorRANK.java" closeable="true">
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;editor id=&quot;org.eclipse.jdt.ui.CompilationUnitEditor&quot;>&#xD;&#xA;&lt;input factoryID=&quot;org.eclipse.ui.part.FileEditorInputFactory&quot; path=&quot;/Minecraft/src/bestock/ranksystem/ItemDoorRANK.java&quot;/>&#xD;&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;1371&quot; selectionTopPixel=&quot;20&quot;/>&#xD;&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>removeOnHide</tags>
         </children>
